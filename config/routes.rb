@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get("/", { :controller => "users", :action => "index"})
+  #get("/", { :controller => "users", :action => "index"})
 
   get("/users", { :controller => "users", :action => "index"})
 
@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   #------------------------------
 
   devise_for :users
-  root "photos#index"
+  root "users#index"
   # Routes for the Photo resource:
 
   # CREATE

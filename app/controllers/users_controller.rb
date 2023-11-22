@@ -5,4 +5,5 @@ class UsersController < ApplicationController
     @list_of_users = matching_users.order({ :created_at => :desc })
     render({ :template => "users/index" })
   end 
+
 end 
