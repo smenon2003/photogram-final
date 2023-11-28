@@ -19,12 +19,22 @@ class LikesController < ApplicationController
 
   def create
     the_like = Like.new
-    the_like.fan_id = params.fetch("query_fan_id")
+    the_like.fan_id = current_user.id #params.fetch("query_fan_id")
     the_like.photo_id = params.fetch("query_photo_id")
 
     if the_like.valid?
       the_like.save
-      redirect_to("/likes", { :notice => "Like created successfully." })
+      @the_photo  = Photo.find(the_like.photo_id)
+
+      #if current_user.likes.where(photo: @the_photo).exists?
+      #  puts "  Database is aware of the new like relationship!!!!!"
+      #else 
+      #  puts "  database is not aware of hte new like relationship... gotta fix something "
+      #end 
+
+      #redirect_to("/likes", { :notice => "Like created successfully." })
+      flash[:notice] = "Like created successfully."
+      render({ :template => "photos/show" })
     else
       redirect_to("/likes", { :alert => the_like.errors.full_messages.to_sentence })
     end

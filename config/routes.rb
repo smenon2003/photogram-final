@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   #get("/", { :controller => "users", :action => "index"})
 
-  get("/users", { :controller => "users", :action => "index"})
+  get("/users", { :controller => "users", :action => "index"}) 
+
+  put("/users", {:controller => "users", :action => "afterForm"})
 
   # Routes for the Like resource:
 
@@ -61,7 +63,7 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: 'registrations'}
   root "users#index"
   # Routes for the Photo resource:
 
@@ -79,6 +81,9 @@ Rails.application.routes.draw do
   
   # DELETE
   get("/delete_photo/:path_id", { :controller => "photos", :action => "destroy" })
+
+  # EDIT 
+  #get("/users/edit", {:controller => "users", :action => "edit"})
 
   #------------------------------
 

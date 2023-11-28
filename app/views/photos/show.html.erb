@@ -60,9 +60,21 @@
         Add a fan
       </dt>
       <dd>
-        <button>
-          Like
-        </button>
+
+        <% if current_user.likes.where(photo: @the_photo).exists?  %>
+
+        <a href="/delete_like/4224">
+            Unlike
+          </a>  
+        <% else %>
+            <form action="/insert_like" method="post">
+                <input type="hidden" value=<%= @the_photo.id %> name="query_photo_id">
+                <button>Like</button>
+            </form>
+            
+          
+        <% end %>
+
       </dd>
 
     </dl>
