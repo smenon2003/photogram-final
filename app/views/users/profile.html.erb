@@ -1,0 +1,96 @@
+<h1><%= @user_2_show.username %></h1>
+
+<dl>
+  <dt>Private</dt>
+  <dd>false</dd>
+
+  <dt>Followers</dt>
+  <dd>
+    <%= @follower_count  %>
+
+
+      <div>
+          <a href="/delete_follow_request/1639">
+            Unfollow
+          </a>
+    </div>
+
+  </dd>
+
+  <dt>Following</dt>
+  <dd><%= @following_count  %></dd>
+</dl>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/users/trina">Profile</a>
+    </li>
+    <li>
+      <a href="/users/trina/liked_photos">Liked photos</a>
+    </li>
+    <li>
+      <a href="/users/trina/feed">Feed</a>
+    </li>
+    <li>
+      <a href="/users/trina/discover">Discover</a>
+    </li>
+  </ul>
+</nav>
+
+<h2>Own photos (7)</h2>
+
+<table border="1">
+  <tr>
+    <th>
+      Image
+    </th>
+
+    <th>
+      Owner
+    </th>
+
+    <th>
+      Caption
+    </th>
+
+    <th>
+      Posted
+    </th>
+
+    <th>
+      Likes
+    </th>
+
+    <th></th>
+  </tr>
+
+  <tr>
+    <td>
+      <img src="https://robohash.org/illumcorruptiveniam" class="img-responsive">
+    </td>
+
+    <td>
+      trina
+    </td>
+
+    <td>
+      Laughter is poison to fear.
+    </td>
+
+    <td>
+      over 4 years ago
+    </td>
+
+    <td>
+      8
+    </td>
+
+    <td>
+      <a href="/photos/635">
+        Show details
+      </a>
+    </td>
+  </tr>
+  
+</table>

@@ -26,6 +26,9 @@ class LikesController < ApplicationController
       the_like.save
       @the_photo  = Photo.find(the_like.photo_id)
 
+      @the_photo.likes_count = @the_photo.likes_count + 1 
+      @the_photo.save
+
       #if current_user.likes.where(photo: @the_photo).exists?
       #  puts "  Database is aware of the new like relationship!!!!!"
       #else 
@@ -33,6 +36,7 @@ class LikesController < ApplicationController
       #end 
 
       #redirect_to("/likes", { :notice => "Like created successfully." })
+      flash.delete(:alert)
       flash[:notice] = "Like created successfully."
       render({ :template => "photos/show" })
     else
@@ -56,11 +60,23 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_like = Like.where({ :id => the_id }).at(0)
+    the_photo_id = params.fetch("path_id")
+    the_like = Like.where({ :photo_id => the_photo_id,  :fan_id =>current_user.id }).at(0)
+    @the_photo  = Photo.find(the_photo_id)
 
-    the_like.destroy
+    #. check that the like was found 
+    if the_like != nil
+      the_like.destroy
+      
 
-    redirect_to("/likes", { :notice => "Like deleted successfully."} )
+      @the_photo  = Photo.find(the_photo_id)
+
+      @the_photo.likes_count = @the_photo.likes_count - 1 
+      @the_photo.save
+
+      flash.delete(:notice)
+      flash[:alert] = "Like deleted successfully."
+    end 
+    render({ :template => "photos/show" }) 
   end
 end

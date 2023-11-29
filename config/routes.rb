@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   put("/users", {:controller => "users", :action => "afterForm"})
 
+  #get("/users/:user_name_p", { :controller => "users", :action => "userProfile" })
+
   # Routes for the Like resource:
 
   # CREATE
@@ -64,6 +66,8 @@ Rails.application.routes.draw do
   #------------------------------
 
   devise_for :users, controllers: {registrations: 'registrations'}
+  get("/users/:user_name_p", { :controller => "users", :action => "userProfile" })
+
   root "users#index"
   # Routes for the Photo resource:
 

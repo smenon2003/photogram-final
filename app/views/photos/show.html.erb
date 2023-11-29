@@ -63,7 +63,7 @@
 
         <% if current_user.likes.where(photo: @the_photo).exists?  %>
 
-        <a href="/delete_like/4224">
+        <a href="/delete_like/<%= @the_photo.id%>">
             Unlike
           </a>  
         <% else %>
