@@ -19,28 +19,75 @@
         </th>
       </tr>
 
-      <% @list_of_users.each do |a_user| %>
+      <% @list_status_users.each do |status_struct| %>
       <tr>
         <td>
-          <%= a_user.username %>
+          <% if user_signed_in? %>
+            <%= status_struct.user.username %>
+          <% else  %>
+            <%= status_struct.username %>
+          <% end  %>
         </td>
 
         <td>
-          <% if a_user.private == true %>
-            Yes
-          <% else %>
-            No
-          <% end %>
+          <% if user_signed_in? %>
+            <% if status_struct.user.private == true %>
+              Yes
+            <% else %>
+              No
+            <% end %>
+          <% else  %>
+            <% if status_struct.private == true %>
+              Yes
+            <% else %>
+              No
+            <% end %>
+          <% end  %>
+          
         </td>
 
         <td>
-          <%=  %>
+            <% if user_signed_in? %>
+              <% if status_struct.hasBeenAccepted  %>
+                  <a href="/delete_follow_request/<%= status_struct.user.id %>">
+                  Unfollow
+                  </a>
+              <% elsif status_struct.hasBeenPending  %>
+                  Request Sent. <a href="/delete_follow_request/<%= status_struct.user.id %>">
+                  Cancel
+                </a>
+              <% elsif status_struct.hasBeenRejected  %>
+               
+              <% else   %>
+                  <form action="/insert_follow_request" method="post">
+                    <input type="hidden" name="query_recipient_id" value="<%= status_struct.user.id %>">
+
+                    <button>
+                      Follow
+                    </button>
+                </form>
+              <% end %>
+            <% else  %>
+              
+            <% end  %>
+
+
+            
+      
         </td>
 
         <td>
-          <a href="/users/<%= a_user.id %>">
-            Show details
-          </a>
+          <% if user_signed_in? %>
+            <a href="/users/<%= status_struct.user.id %>">
+              Show details
+            </a>
+          <% else  %>
+            <a href="/users/<%= status_struct.id %>">
+              Show details
+            </a>
+          <% end  %>
+
+          
         </td>
       </tr>
       <% end %>

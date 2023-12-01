@@ -65,32 +65,34 @@
     <th></th>
   </tr>
 
+<% @matching_photos.each do |a_photo| %> 
   <tr>
     <td>
-      <img src="https://robohash.org/illumcorruptiveniam" class="img-responsive">
+      <img src= <%= a_photo.image %> class="img-responsive">
     </td>
 
     <td>
-      trina
+      <%=  @user_2_show.username %> 
     </td>
 
     <td>
-      Laughter is poison to fear.
+      <%=  a_photo.caption %>
     </td>
 
     <td>
-      over 4 years ago
+      <%= a_photo.created_at %>
     </td>
 
     <td>
-      8
+      <%= a_photo.likes_count  %>
     </td>
 
     <td>
-      <a href="/photos/635">
+      <a href="/photos/<%= a_photo.id %> >">
         Show details
       </a>
     </td>
   </tr>
+  <% end %> 
   
 </table>
