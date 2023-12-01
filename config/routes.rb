@@ -44,6 +44,8 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_follow_request/:path_id", { :controller => "follow_requests", :action => "destroy" })
 
+  get("/delete_follow_request_from_profile/:path_id", { :controller => "follow_requests", :action => "destroyAndStay" })
+
   #------------------------------
 
   # Routes for the Comment resource:

@@ -20,8 +20,13 @@ class FollowRequestsController < ApplicationController
   def create
     the_follow_request = FollowRequest.new
     the_follow_request.recipient_id = params.fetch("query_recipient_id")
+    recip_user = User.find( params.fetch("query_recipient_id")  )
     the_follow_request.sender_id = current_user.id #params.fetch("query_sender_id")
-    the_follow_request.status = "pending"
+    if recip_user.private 
+      the_follow_request.status = "pending"
+    else 
+      the_follow_request.status = "accepted"
+    end
 
     if the_follow_request.valid?
       the_follow_request.save
@@ -30,7 +35,12 @@ class FollowRequestsController < ApplicationController
     else
       #redirect_to("/follow_requests", { :alert => the_follow_request.errors.full_messages.to_sentence })
     end
-    redirect_to controller: :users, action: :index 
+
+    if params.include?(:stay_on_profile)
+      redirect_to controller: :users, action: :userProfile, user_name_p: recip_user.username 
+    else 
+      redirect_to controller: :users, action: :index 
+    end
   end
 
   def update
@@ -62,5 +72,18 @@ class FollowRequestsController < ApplicationController
     #render({ :template => "users/index" })
     #redirect_to("users/index", { :notice => "Follow request deleted successfully."}, allow_other_host: true )
     redirect_to controller: :users, action: :index 
+  end
+
+  def destroyAndStay
+    recipient_id = params.fetch("path_id")
+    recip_user = User.find(recipient_id)
+    the_follow_request = FollowRequest.where({ :sender => current_user.id, :recipient => recipient_id }).at(0)
+
+    the_follow_request.destroy
+
+    flash[:notice] = "Follow request deleted successfully."
+    #render({ :template => "users/index" })
+    #redirect_to("users/index", { :notice => "Follow request deleted successfully."}, allow_other_host: true )
+    redirect_to controller: :users, action: :userProfile, user_name_p: recip_user.username 
   end
 end

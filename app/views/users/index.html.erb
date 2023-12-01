@@ -78,11 +78,11 @@
 
         <td>
           <% if user_signed_in? %>
-            <a href="/users/<%= status_struct.user.id %>">
+            <a href="/users/<%= status_struct.user.username %>">
               Show details
             </a>
           <% else  %>
-            <a href="/users/<%= status_struct.id %>">
+            <a href="/users/<%= status_struct.username %>">
               Show details
             </a>
           <% end  %>

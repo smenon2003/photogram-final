@@ -53,6 +53,10 @@ class UsersController < ApplicationController
     @user_2_show = User.where(:username => @user_2_show_uname).at(0)
     @matching_photos = Photo.where( :owner_id => @user_2_show.id)
 
+    @hasBeenAccepted = FollowRequest.where(:sender => current_user.id, :recipient => @user_2_show.id, :status => "accepted").exists?
+    @hasBeenPending = FollowRequest.where(:sender => current_user.id, :recipient => @user_2_show.id, :status => "pending").exists?
+    @hasBeenRejected = FollowRequest.where(:sender => current_user.id, :recipient => @user_2_show.id, :status => "rejected").exists?
+
     #. find the number of followers 
     @follower_count = FollowRequest.where(:recipient => @user_2_show.id, :status => "accepted").count
     

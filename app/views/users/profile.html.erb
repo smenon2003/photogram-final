@@ -10,9 +10,27 @@
 
 
       <div>
-          <a href="/delete_follow_request/1639">
-            Unfollow
-          </a>
+          
+
+          
+
+          <% if @hasBeenAccepted  %>
+              <a href="/delete_follow_request_from_profile/<%= @user_2_show.id %>">
+                Unfollow
+              </a>
+             
+          <% elsif @hasBeenRejected  %>
+            
+          <% else   %>
+              <form action="/insert_follow_request" method="post">
+                <input type="hidden" name="query_recipient_id" value="<%= @user_2_show.id %>">
+                <input type="hidden" name="stay_on_profile" value="1">
+
+                <button>
+                  Follow
+                </button>
+              </form>
+          <% end %>
     </div>
 
   </dd>
@@ -38,7 +56,7 @@
   </ul>
 </nav>
 
-<h2>Own photos (7)</h2>
+<h2>Own photos (<%= @matching_photos.count %>)</h2>
 
 <table border="1">
   <tr>
@@ -80,7 +98,7 @@
     </td>
 
     <td>
-      <%= a_photo.created_at %>
+      <%= time_ago_in_words(a_photo.created_at) %> ago
     </td>
 
     <td>
@@ -88,7 +106,7 @@
     </td>
 
     <td>
-      <a href="/photos/<%= a_photo.id %> >">
+      <a href="/photos/<%= a_photo.id %>">
         Show details
       </a>
     </td>
