@@ -135,6 +135,50 @@
         Update photo
       </button>
     </form>
+
+    <% if current_user.id == @the_photo.owner_id  %>
+      <dt>Delete photo</dt>
+      <dd>
+        <a href="/delete_photo/<%= @the_photo.id %>">
+          Delete this photo
+        </a>
+      </dd>
+    <% end %>
+
+    <h2>Comments</h2>
+
+    <table>
+      <tbody><tr>
+        <th>Commenter</th>
+        <th>Comment</th>
+        <th>Posted</th>
+      </tr>
+      <% @list_comment_structs.each do |comm_struct| %>
+        <tr>
+          <td>
+            <%= comm_struct.authorName %>
+          </td>
+
+          <td>
+            <%= comm_struct.commentTxt %>
+          </td>
+
+          <td>
+            <%= time_ago_in_words(comm_struct.dateInWords )%>
+          </td>
+        </tr>  
+      <% end %>
+    </tbody></table>
+
+    <h3>Add a new comment</h3>
+    <form action="/insert_comment" method="post">
+      <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+      
+      <label for="browser_comment">Comment</label>
+      <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
+
+      <button>Add comment</button>
+    </form>
   </div>
 </div>
 

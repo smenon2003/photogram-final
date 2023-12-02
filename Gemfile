@@ -108,3 +108,5 @@ group :test do
   gem "webmock"
   gem "carrierwave"
 end
+
+gem "cloudinary"

@@ -22,6 +22,8 @@ class LikesController < ApplicationController
     the_like.fan_id = current_user.id #params.fetch("query_fan_id")
     the_like.photo_id = params.fetch("query_photo_id")
 
+   
+    
     if the_like.valid?
       the_like.save
       @the_photo  = Photo.find(the_like.photo_id)
