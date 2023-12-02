@@ -153,18 +153,18 @@
         <th>Comment</th>
         <th>Posted</th>
       </tr>
-      <% @list_comment_structs.each do |comm_struct| %>
+      <% @the_photo.comments.order(created_at: :desc).each do |a_comment| %>
         <tr>
           <td>
-            <%= comm_struct.authorName %>
+            <%= a_comment.author_id %>
           </td>
 
           <td>
-            <%= comm_struct.commentTxt %>
+            <%= a_comment.body %>
           </td>
 
           <td>
-            <%= time_ago_in_words(comm_struct.dateInWords )%>
+            <%= a_comment.created_at %>
           </td>
         </tr>  
       <% end %>

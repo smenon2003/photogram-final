@@ -13,9 +13,7 @@ class PhotosController < ApplicationController
   def show
     the_id = params.fetch("path_id")
 
-    matching_photos = Photo.where({ :id => the_id })
-
-    @the_photo = matching_photos.at(0)
+    @the_photo = Photo.where(id: the_id).first
 
     matching_comments = Comment.where({:photo => the_id})
     @list_comment_structs = matching_comments.map do |comment_iter |
